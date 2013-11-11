@@ -4,5 +4,8 @@
     <string name="app_name">StoObekta</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">FUUU</string>
+    <string name="some_hint">Some hint</string>
+    <string name="some_text">Some text</string>
+    <string name="title_activity_list_obekti">ListObektiActivity</string>
 
 </resources>
