@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
- 
+
     <TextView
         android:id="@+id/textCity"
         android:layout_width="wrap_content"
@@ -10,7 +10,7 @@
         android:layout_alignLeft="@+id/textID"
         android:layout_below="@+id/textID"
         android:textAppearance="?android:attr/textAppearanceMedium" />
- 
+
     <TextView
         android:id="@+id/textName"
         android:layout_width="wrap_content"
@@ -20,38 +20,43 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/obektNumberDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/textCity"
+        android:layout_alignBottom="@+id/textID"
+        android:layout_alignTop="@+id/textID"
         android:layout_alignParentLeft="true"
-        android:text="Номер:" />
+        android:text="@string/obektNumberDesc"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textID"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="38dp"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_toRightOf="@+id/obektNumberDescription"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/obektCityDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textCity"
         android:layout_alignBottom="@+id/textCity"
         android:layout_alignParentLeft="true"
-        android:text="Град:" />
+        android:text="@string/obektCityDesc"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/obektNameDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textName"
         android:layout_alignBottom="@+id/textName"
         android:layout_alignParentLeft="true"
-        android:text="Име:" />
- 
+        android:text="@string/obektNameDesc"
+        android:textStyle="bold" />
+
 </RelativeLayout>
