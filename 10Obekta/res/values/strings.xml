@@ -11,5 +11,10 @@
     <string name="obektCityDesc">Град:</string>
     <string name="obektNumberDesc">Номер:</string>
     <string name="obektNameDesc">Име:</string>
+    <string name="title_activity_detailed_obekt">DetailedObektActivity</string>
+    <string name="title_activity_site_info_fragment">SiteInfoFragment</string>
+    <string name="title_activity_site_comments_fragment">SiteCommentsFragment</string>
+    <string name="title_activity_sites_wiki_fragment">SitesWikiFragment</string>
+    <string name="title_activity_site_events_fragment">SiteEventsFragment</string>
 
 </resources>

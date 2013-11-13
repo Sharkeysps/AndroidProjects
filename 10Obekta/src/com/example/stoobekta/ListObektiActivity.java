@@ -1,12 +1,16 @@
 package com.example.stoobekta;
 
-import com.example.stoobekta.db.SimpleCursorLoader;
 import com.example.stoobekta.db.SitesDB;
+import com.example.stoobekta.db.SitesDBCursorLoader;
+import com.example.stoobekta.db.SitesDBDetailedCursorLoader;
+import com.example.stoobekta.models.DetailedSiteInfoModel;
+import com.google.gson.Gson;
 
 import android.os.Bundle;
+import android.R.integer;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -23,16 +27,12 @@ public class ListObektiActivity extends Activity implements
 
 	private SimpleCursorAdapter dataAdapter;
 
-	// LoaderManager loadermanager;
-	// CursorLoader cursorLoader;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_obekti);
 		super.onCreate(savedInstanceState);
-
-
+		
 		// The columns to be bound
 		String[] dataBindFrom = new String[] { SitesDB.KEY_NUMBER,
 				SitesDB.KEY_CITY, SitesDB.KEY_NAME, };
@@ -71,21 +71,57 @@ public class ListObektiActivity extends Activity implements
 	public void onItemClick(AdapterView<?> listView, View view, int position,
 			long id) {
 		Cursor cursor = (Cursor) listView.getItemAtPosition(position);
-		String countryCode = cursor.getString(cursor
+		String obektNumber = cursor.getString(cursor
 				.getColumnIndexOrThrow("number"));
-		Toast.makeText(getApplicationContext(), String.valueOf(countryCode),
-				Toast.LENGTH_SHORT).show();
+		
+		Bundle bundle=new Bundle();
+		bundle.putString("number",obektNumber);
+		getLoaderManager().initLoader(1, bundle, this);
 
 	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		return new SitesDBCursorLoader(this, SitesDB.getInstance(this));
+		if(id==0){
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this));
+		}
+		else{
+			return new SitesDBDetailedCursorLoader(this,
+					SitesDB.getInstance(this),args.getString("number"));
+		}
 	}
 
 	@Override
-	public void onLoadFinished(Loader<Cursor> arg0, Cursor loadedCursor) {
-		dataAdapter.swapCursor(loadedCursor);
+	public void onLoadFinished(Loader<Cursor> loader, Cursor loadedCursor) {
+		int loaderId=loader.getId();
+		
+		if(loaderId==0){
+			dataAdapter.swapCursor(loadedCursor);
+		}else{
+			DetailedSiteInfoModel selectedSite=new DetailedSiteInfoModel();
+			selectedSite.setCity(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_CITY)));
+			
+			selectedSite.setName(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_NAME)));
+			
+			selectedSite.setNumber(loadedCursor
+					.getInt(loadedCursor.getColumnIndex(SitesDB.KEY_NUMBER)));
+			
+			selectedSite.setDescription(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_DESCRIPTION)));
+			
+			selectedSite.setTicketAdult(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_TICKETADULT)));
+			
+			selectedSite.setTicketChild(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_TICKETCHILD)));
+			
+			selectedSite.setWorkingHours(loadedCursor
+					.getString(loadedCursor.getColumnIndex(SitesDB.KEY_WORKINGHOURS)));
+			
+			PassToDetailedActivity(selectedSite);
+		}
 
 	}
 
@@ -94,23 +130,13 @@ public class ListObektiActivity extends Activity implements
 		dataAdapter.swapCursor(null);
 
 	}
-
-	// Class needs to be static to work,but i can`t have static in outer class
-	public static final class SitesDBCursorLoader extends SimpleCursorLoader {
-
-		private SitesDB sitesDB;
-
-		public SitesDBCursorLoader(Context context, SitesDB sitesDB) {
-			super(context);
-			this.sitesDB = sitesDB;
-		}
-
-		@Override
-		public Cursor loadInBackground() {
-			Cursor loaderCursor = sitesDB.getObekti();
-			return loaderCursor;
-		}
-
+	
+	private void PassToDetailedActivity(DetailedSiteInfoModel model){
+		Intent i = new Intent(this,DetailedObektActivity.class);
+		String serializedString=new Gson().toJson(model);
+		i.putExtra("model", serializedString);
+		startActivity(i);
 	}
+
 
 }

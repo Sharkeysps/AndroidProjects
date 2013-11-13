@@ -28,6 +28,27 @@
             android:name="com.example.stoobekta.ListObektiActivity"
             android:label="@string/title_activity_list_obekti" >
         </activity>
+        <activity
+            android:name="com.example.stoobekta.DetailedObektActivity"
+            android:label="@string/title_activity_detailed_obekt" >
+        </activity>
+            <activity
+            android:name="com.example.stoobekta.SiteInfoFragment"
+            android:label="@string/title_activity_site_info_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.stoobekta.SiteCommentsFragment"
+            android:label="@string/title_activity_site_comments_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.stoobekta.SitesWikiFragment"
+            android:label="@string/title_activity_sites_wiki_fragment" >
+        </activity>
+        <activity
+            android:name="com.example.stoobekta.SiteEventsFragment"
+            android:label="@string/title_activity_site_events_fragment" >
+        </activity>
+    
     </application>
 
 </manifest>

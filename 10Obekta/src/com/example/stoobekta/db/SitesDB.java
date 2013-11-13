@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
@@ -17,6 +18,10 @@ public class SitesDB extends SQLiteAssetHelper {
 	public static final String KEY_CITY = "city";
 	public static final String KEY_NAME = "name";
 	public static final String KEY_NUMBER = "number";
+	public static final String KEY_DESCRIPTION = "description";
+	public static final String KEY_TICKETADULT = "ticketadult";
+	public static final String KEY_TICKETCHILD = "ticketchild";
+	public static final String KEY_WORKINGHOURS = "worktimes";
 
 	private static final String DATABASE_NAME = "national_sites_android";
 	private static final int DATABASE_VERSION = 1;
@@ -59,6 +64,29 @@ public class SitesDB extends SQLiteAssetHelper {
 		c.moveToFirst();
 		return c;
 
+	}
+	
+	public Cursor getDetailedInfoAboutObekt(String number){
+
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		
+		String[] sqlSelect = { 
+				KEY_ROWID,KEY_NUMBER, KEY_CITY, KEY_NAME,KEY_DESCRIPTION,
+				KEY_TICKETADULT,KEY_TICKETCHILD,KEY_WORKINGHOURS};
+		String sqlTables = TABLE_NAME;
+		
+		try{
+			qb.setTables(sqlTables);
+			Cursor c = qb.query(db, sqlSelect, "_id=?", new String[]{number}, null, null, null);
+
+
+			c.moveToFirst();
+			return c;
+		}catch(Exception ex){
+			Log.d("d",ex.getMessage());
+		}
+		return null;
 	}
 
 }
