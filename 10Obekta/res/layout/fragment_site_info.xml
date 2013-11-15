@@ -1,16 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:background="#fa6a6a" >
-     
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Design Top Rated Screen"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"/>
-     
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/obektName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/obektImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="19dp"
+            android:src="@drawable/obekt1" />
+
+        <TextView
+            android:id="@+id/workHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work hours" />
+
+        <TextView
+            android:id="@+id/ticketAdult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ticket Adult" />
+        
+          <TextView
+            android:id="@+id/ticketChild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TicketChild" />
+
+        <TextView
+            android:id="@+id/obektDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ObektDesc" />
  
-</RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

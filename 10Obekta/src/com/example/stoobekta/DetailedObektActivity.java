@@ -23,10 +23,10 @@ public class DetailedObektActivity extends FragmentActivity implements
 	private static final String DETAILED_INFO_TAB="Инфо";
 	private static final String EVENTS_TAB="Събития";
 	private static final String COMMENTS_TAB="Коментари";
-	private static final String WIKI_TAB="Wiki";
+
 	
 	// Tab titles
-	private String[] tabs = { DETAILED_INFO_TAB,  EVENTS_TAB, COMMENTS_TAB,WIKI_TAB };
+	private String[] tabs = { DETAILED_INFO_TAB,  EVENTS_TAB, COMMENTS_TAB };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -2,7 +2,6 @@ package com.example.stoobekta;
 
 import com.example.stoobekta.db.SitesDB;
 import com.example.stoobekta.db.SitesDBCursorLoader;
-import com.example.stoobekta.db.SitesDBDetailedCursorLoader;
 import com.example.stoobekta.models.DetailedSiteInfoModel;
 import com.google.gson.Gson;
 
@@ -76,18 +75,20 @@ public class ListObektiActivity extends Activity implements
 		
 		Bundle bundle=new Bundle();
 		bundle.putString("number",obektNumber);
-		getLoaderManager().initLoader(1, bundle, this);
+		getLoaderManager().restartLoader(1, bundle, this);
 
 	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		if(id==0){
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this));
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),0,"");
 		}
 		else{
-			return new SitesDBDetailedCursorLoader(this,
-					SitesDB.getInstance(this),args.getString("number"));
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					1,args.getString("number"));
+//			return new SitesDBDetailedCursorLoader(this,
+//					SitesDB.getInstance(this),args.getString("number"));
 		}
 	}
 

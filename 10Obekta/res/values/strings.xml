@@ -16,5 +16,9 @@
     <string name="title_activity_site_comments_fragment">SiteCommentsFragment</string>
     <string name="title_activity_sites_wiki_fragment">SitesWikiFragment</string>
     <string name="title_activity_site_events_fragment">SiteEventsFragment</string>
+    <string name="work_hours_desc">Работно време:</string>
+    <string name="ticket_adult_desc">Билет(възрастен):</string>
+    <string name="ticket_child_desc">Билет(дете):</string>
+    <string name="tour_guide_desc">Гид-цена:</string>
 
 </resources>
