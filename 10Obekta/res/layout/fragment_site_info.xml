@@ -27,18 +27,21 @@
 
         <TextView
             android:id="@+id/workHours"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Work hours" />
 
         <TextView
             android:id="@+id/ticketAdult"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ticket Adult" />
         
           <TextView
             android:id="@+id/ticketChild"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TicketChild" />

@@ -24,8 +24,11 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 		if(loaderId==0){
 		Cursor loaderCursor = sitesDB.getObekti();
 		return loaderCursor;
-		}else{
+		}else if(loaderId==1){
 			Cursor loaderCursor = sitesDB.getDetailedInfoAboutObekt(searchedNumber);
+			return loaderCursor;
+		}else{
+			Cursor loaderCursor=sitesDB.getSearchResult(searchedNumber);
 			return loaderCursor;
 		}
 		}

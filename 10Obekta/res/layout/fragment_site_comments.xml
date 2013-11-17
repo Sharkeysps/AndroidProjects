@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#17df0d">
-     
-    <TextView android:layout_width="fill_parent"
+    android:background="#17df0d"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/commentText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Design Movies Screen"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"/>
-     
- 
-</RelativeLayout>
+        android:ems="10"
+        android:hint="@string/send_comment_hint"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLength="140" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/sendComment"
+        android:layout_width="222dp"
+        android:layout_height="wrap_content"
+        android:text="@string/send_comment_text_btn" />
+
+    <TextView
+        android:id="@+id/commentDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comment_desc"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/lv_comments"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

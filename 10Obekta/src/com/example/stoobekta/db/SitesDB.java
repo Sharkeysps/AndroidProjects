@@ -66,6 +66,25 @@ public class SitesDB extends SQLiteAssetHelper {
 
 	}
 	
+	
+	public Cursor getSearchResult(String searchNumber) {
+
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		String[] sqlSelect = { KEY_ROWID,KEY_NUMBER, KEY_CITY, KEY_NAME };
+		String sqlTables = TABLE_NAME;
+		
+		qb.setTables(sqlTables);
+		Cursor c = qb.query(db, sqlSelect, KEY_NUMBER +  " LIKE ?",
+				new String[]{searchNumber+"%"}, null, null, null);
+
+		c.moveToFirst();
+		return c;
+
+	}
+	
+	
 	public Cursor getDetailedInfoAboutObekt(String number){
 
 		SQLiteDatabase db = getReadableDatabase();

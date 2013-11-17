@@ -26,7 +26,7 @@ public class DetailedObektActivity extends FragmentActivity implements
 
 	
 	// Tab titles
-	private String[] tabs = { DETAILED_INFO_TAB,  EVENTS_TAB, COMMENTS_TAB };
+	private String[] tabs = { DETAILED_INFO_TAB,  COMMENTS_TAB , EVENTS_TAB};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -20,10 +20,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			return SiteInfo.getSiteInfoFragment();
 			
 		case 1:
-			return SiteEvents.getSiteEventsFragment();
+			return SiteComments.returnCommentFragment();
+			
 			
 		case 2:
-			return SiteComments.returnCommentFragment();
+			return SiteEvents.getSiteEventsFragment();
 		}
 		return null;
 	}
