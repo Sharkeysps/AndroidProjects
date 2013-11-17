@@ -22,6 +22,7 @@
     <string name="tour_guide_desc">Гид-цена:</string>
     <string name="send_comment_text_btn">Изпратете коментар</string>
     <string name="comment_desc">Коментари за този обект:</string>
+    <string name="events_desc">Тук може да видите предстоящи събития ако има такива:</string>
     <string name="send_comment_hint">Напишете вашият коментар тук</string>
 
 </resources>
