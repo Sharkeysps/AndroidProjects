@@ -26,6 +26,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -138,12 +139,24 @@ public class ListObektiActivity<D> extends Activity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// // Inflate the menu; this adds items to the action bar if it is
-		// present.
-		// getMenuInflater().inflate(R.menu.main, menu);
+		 getMenuInflater().inflate(R.menu.list_obekti, menu);
 		return true;
 	}
-
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.home_button:
+	        	 Intent homeIntent = new Intent(this, MainActivity.class);
+	             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	             startActivity(homeIntent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 	@Override
 	public void onItemClick(AdapterView<?> listView, View view, int position,
 			long id) {

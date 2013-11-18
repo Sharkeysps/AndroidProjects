@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ProgressActivity" >
+    tools:context=".ProgressActivity" android:background="#FFE4C4">
 
    <ProgressBar
         android:id="@+id/visitedSitesProgress"

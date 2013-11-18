@@ -23,11 +23,13 @@ import android.animation.ArgbEvaluator;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.ProgressBar;
 
@@ -39,6 +41,7 @@ public class ProgressActivity extends Activity implements
 	TextView currentRank;
 	String androidId;
 	private int VisitedSitesCount;
+	private boolean refreshedRanking=false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class ProgressActivity extends Activity implements
 		this.VisitedSitesCount = count;
 		progressBar.setProgress(count);
 		visitedSites.setText("Посетени обекти:" + count + "/100");
-		SendTouristData();
+		GetCurrentUserRank();
 	}
 
 	private void GetCurrentUserRank() {
@@ -68,12 +71,12 @@ public class ProgressActivity extends Activity implements
 					@Override
 					public void onSuccess(String response) {
 
-						int count = Integer.valueOf(response)+1;
-						if (count == (-1)) {
+						int count = Integer.valueOf(response) + 1;
+						if (refreshedRanking==false) {
 							SendTouristData();
-						}else{
-							currentRank.setText("Вашата позиция в класацията е:"+count);
 						}
+						currentRank.setText("Вашата позиция в класацията е:"
+								+ count);
 
 					}
 
@@ -103,6 +106,7 @@ public class ProgressActivity extends Activity implements
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
+						refreshedRanking=true;
 						GetCurrentUserRank();
 
 					}
@@ -132,6 +136,20 @@ public class ProgressActivity extends Activity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.progress, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.home_button:
+			Intent homeIntent = new Intent(this, MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override

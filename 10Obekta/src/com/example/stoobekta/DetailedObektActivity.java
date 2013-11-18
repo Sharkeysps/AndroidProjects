@@ -10,10 +10,12 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class DetailedObektActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -78,6 +80,26 @@ public class DetailedObektActivity extends FragmentActivity implements
 
 			}
 		});
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		 getMenuInflater().inflate(R.menu.detailed_obekt, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.home_button:
+	        	 Intent homeIntent = new Intent(this, MainActivity.class);
+	             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	             startActivity(homeIntent);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	@Override
