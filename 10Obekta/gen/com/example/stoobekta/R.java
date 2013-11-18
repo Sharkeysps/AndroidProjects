@@ -124,36 +124,42 @@ public final class R {
         public static final int obekt99=0x7f020064;
     }
     public static final class id {
-        public static final int action_settings=0x7f080017;
-        public static final int button1=0x7f080004;
-        public static final int button2=0x7f080005;
-        public static final int commentDesc=0x7f080008;
-        public static final int commentText=0x7f080006;
+        public static final int action_settings=0x7f08001d;
+        public static final int button1=0x7f080005;
+        public static final int button2=0x7f080006;
+        public static final int commentDesc=0x7f08000e;
+        public static final int commentText=0x7f08000c;
+        public static final int currentRank=0x7f08000b;
         public static final int getNearSites=0x7f080002;
-        public static final int listView1=0x7f080003;
-        public static final int lv_comments=0x7f080009;
-        public static final int lv_events=0x7f08000a;
+        public static final int listView1=0x7f080004;
+        public static final int lv_comments=0x7f08000f;
+        public static final int lv_events=0x7f080010;
         public static final int myFilter=0x7f080001;
-        public static final int obektCityDescription=0x7f080015;
-        public static final int obektDesc=0x7f080010;
-        public static final int obektImg=0x7f08000c;
-        public static final int obektName=0x7f08000b;
-        public static final int obektNameDescription=0x7f080016;
-        public static final int obektNumberDescription=0x7f080014;
+        public static final int obektCityDescription=0x7f08001b;
+        public static final int obektDesc=0x7f080016;
+        public static final int obektImg=0x7f080012;
+        public static final int obektName=0x7f080011;
+        public static final int obektNameDescription=0x7f08001c;
+        public static final int obektNumberDescription=0x7f08001a;
         public static final int pager=0x7f080000;
-        public static final int sendComment=0x7f080007;
-        public static final int textCity=0x7f080011;
-        public static final int textID=0x7f080012;
-        public static final int textName=0x7f080013;
-        public static final int ticketAdult=0x7f08000e;
-        public static final int ticketChild=0x7f08000f;
-        public static final int workHours=0x7f08000d;
+        public static final int progresText=0x7f080008;
+        public static final int progresTitle=0x7f080009;
+        public static final int rankingTitle=0x7f08000a;
+        public static final int sendComment=0x7f08000d;
+        public static final int textCity=0x7f080017;
+        public static final int textID=0x7f080018;
+        public static final int textName=0x7f080019;
+        public static final int ticketAdult=0x7f080014;
+        public static final int ticketChild=0x7f080015;
+        public static final int visitedSites=0x7f080003;
+        public static final int visitedSitesProgress=0x7f080007;
+        public static final int workHours=0x7f080013;
     }
     public static final class layout {
         public static final int activity_detailed_obekt=0x7f030000;
         public static final int activity_list_obekti=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_visited_sites=0x7f030003;
+        public static final int activity_progress=0x7f030003;
         public static final int fragment_site_comments=0x7f030004;
         public static final int fragment_site_events=0x7f030005;
         public static final int fragment_site_info=0x7f030006;
@@ -164,11 +170,12 @@ public final class R {
         public static final int detailed_obekt=0x7f070000;
         public static final int list_obekti=0x7f070001;
         public static final int main=0x7f070002;
-        public static final int site_comments=0x7f070003;
-        public static final int site_events=0x7f070004;
-        public static final int site_info=0x7f070005;
-        public static final int sites_wiki=0x7f070006;
-        public static final int visited_sites=0x7f070007;
+        public static final int progress=0x7f070003;
+        public static final int site_comments=0x7f070004;
+        public static final int site_events=0x7f070005;
+        public static final int site_info=0x7f070006;
+        public static final int sites_wiki=0x7f070007;
+        public static final int visited_sites=0x7f070008;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -180,6 +187,9 @@ public final class R {
         public static final int obektCityDesc=0x7f050007;
         public static final int obektNameDesc=0x7f050009;
         public static final int obektNumberDesc=0x7f050008;
+        public static final int progress_bar_title=0x7f05001d;
+        public static final int progress_ranking=0x7f05001c;
+        public static final int progress_title=0x7f05001b;
         public static final int send_comment_hint=0x7f050017;
         public static final int send_comment_text_btn=0x7f050014;
         public static final int some_hint=0x7f050003;
@@ -189,12 +199,14 @@ public final class R {
         public static final int ticket_child_desc=0x7f050011;
         public static final int title_activity_detailed_obekt=0x7f05000a;
         public static final int title_activity_list_obekti=0x7f050005;
+        public static final int title_activity_progress=0x7f05001a;
         public static final int title_activity_site_comments_fragment=0x7f05000c;
         public static final int title_activity_site_events_fragment=0x7f05000e;
         public static final int title_activity_site_info_fragment=0x7f05000b;
         public static final int title_activity_sites_wiki_fragment=0x7f05000d;
         public static final int title_activity_visited_sites=0x7f050018;
         public static final int tour_guide_desc=0x7f050012;
+        public static final int visited_sites_btn=0x7f050019;
         public static final int work_hours_desc=0x7f05000f;
     }
     public static final class style {

@@ -13,11 +13,29 @@
   <requestFocus />
  </EditText>
 
- <Button
-     android:id="@+id/getNearSites"
-     android:layout_width="306dp"
-     android:layout_height="wrap_content"
-     android:text="@string/get_near_sites_btn" />
+  <LinearLayout 
+        android:orientation="horizontal" 
+        android:paddingLeft="4.0dip" 
+        android:paddingTop="5.0dip" 
+        android:paddingRight="4.0dip" 
+        android:paddingBottom="1.0dip" 
+        android:layout_width="fill_parent" android:layout_height="wrap_content"> 
+
+         <Button
+             android:id="@+id/getNearSites"
+             android:layout_width="188dp"
+             android:layout_height="66dp"
+             android:text="@string/get_near_sites_btn" />
+
+         <Button
+             android:id="@+id/visitedSites"
+             android:layout_width="0.0dip"
+             android:layout_height="72dp"
+             android:layout_weight="0.88"
+             android:text="@string/visited_sites_btn" />
+
+    </LinearLayout> 
+
  
  <ListView android:id="@+id/listView1" android:layout_width="fill_parent"
   android:layout_height="fill_parent" />

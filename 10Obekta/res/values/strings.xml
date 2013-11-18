@@ -20,11 +20,16 @@
     <string name="ticket_adult_desc">Билет(възрастен):</string>
     <string name="ticket_child_desc">Билет(дете):</string>
     <string name="tour_guide_desc">Гид-цена:</string>
-     <string name="get_near_sites_btn">Покажи близки обекти:</string>
+    <string name="get_near_sites_btn">Покажи близки обекти:</string>
     <string name="send_comment_text_btn">Изпратете коментар</string>
     <string name="comment_desc">Коментари за този обект:</string>
     <string name="events_desc">Тук може да видите предстоящи събития ако има такива:</string>
     <string name="send_comment_hint">Напишете вашият коментар тук</string>
     <string name="title_activity_visited_sites">VisitedSitesActivity</string>
+    <string name="visited_sites_btn">Посетени обекти:</string>
+    <string name="title_activity_progress">ProgressActivity</string>
+    <string name="progress_title">Прогрес на посетените обекти и класация:</string>
+    <string name="progress_ranking">Класация</string>
+    <string name="progress_bar_title">Прогрес:</string>
 
 </resources>

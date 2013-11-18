@@ -1,12 +1,15 @@
 package com.example.stoobekta;
 
 import com.example.stoobekta.adapters.TabsPagerAdapter;
+import com.example.stoobekta.helpers.GPSCoordinateChecker;
 import com.example.stoobekta.models.DetailedSiteInfoModel;
 import com.google.gson.Gson;
 
+import android.R.integer;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -33,12 +36,20 @@ public class DetailedObektActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detailed_obekt);
 		
+		Context context=getApplicationContext();
+		
 		String jsonStr = getIntent().getStringExtra("model");
 		DetailedSiteInfoModel model=new Gson().fromJson(jsonStr, DetailedSiteInfoModel.class);		
 		
 		double lat=getIntent().getDoubleExtra("lat", 0);
 		double longitude=getIntent().getDoubleExtra("long", 0);
 		
+		if(lat!=0 || longitude!=0){
+			GPSCoordinateChecker.CheckDistance(lat, longitude,
+					model.Latitude, model.Longitude,
+					model.Number,context);
+		}
+	
 		
 		
 		viewPager = (ViewPager) findViewById(R.id.pager);

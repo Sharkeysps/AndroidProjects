@@ -38,6 +38,9 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 		}else if(loaderId==3){
 			Cursor loaderCursor=sitesDB.getNearSites(coordinates);
 			return loaderCursor;
+		}else if(loaderId==4){
+			Cursor loaderCursor=sitesDB.getVisitedSites();
+			return loaderCursor;
 		}
 		return null;
 		}

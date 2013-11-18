@@ -1,5 +1,6 @@
 package com.example.stoobekta.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -100,19 +101,32 @@ public class SitesDB extends SQLiteAssetHelper {
 		Cursor c = qb.query(
 				db,
 				sqlSelect,
-				"longitude>=? AND longitude<? AND latitude>=?",
+				"longitude>=? AND longitude<? AND latitude>=? AND latitude<=?",
 				new String[] {
 						(String) String.valueOf(coordinates.SmallerLongitude)
 								.subSequence(0, 5),
 						(String) String.valueOf(coordinates.BiggerLongitude)
 								.substring(0, 5),
 						(String) String.valueOf(coordinates.SmallerLatitude)
+								.substring(0, 5),
+						(String) String.valueOf(coordinates.BiggerLatitude)
 								.substring(0, 5) }, null, null, null);
 
 		c.moveToFirst();
 		return c;
 	}
+	
+	
+	public void updateVisitedSite(String number){
+		SQLiteDatabase db = getReadableDatabase();
+		
+		ContentValues newValues= new ContentValues();
+		newValues.put(KEY_VISITED_SITES,"1");
 
+		String[] args = new String[]{number};
+		db.update(TABLE_NAME, newValues, "number=?", args);
+	}
+	
 	public Cursor getDetailedInfoAboutObekt(String number) {
 
 		SQLiteDatabase db = getReadableDatabase();

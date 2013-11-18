@@ -44,6 +44,7 @@ public class ListObektiActivity<D> extends Activity implements
 	private Button getNearSitesButton;
 	GPSLocationListener locationListener;
 	private LocationManager locationManager;
+	private Button getVisitedSitesButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,8 @@ public class ListObektiActivity<D> extends Activity implements
 				1000, 500, locationListener);
 
 		getNearSitesButton = (Button) findViewById(R.id.getNearSites);
+		getVisitedSitesButton=(Button)findViewById(R.id.visitedSites);
+		getVisitedSitesButton.setOnClickListener(this);
 		getNearSitesButton.setOnClickListener(this);
 
 		EditText myFilter = (EditText) findViewById(R.id.myFilter);
@@ -172,6 +175,10 @@ public class ListObektiActivity<D> extends Activity implements
 			// Sites near you
 			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 3,
 					null, coordinates);
+		}else if(id==4){
+			//Visited sites
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 4,
+					null, null);
 		}
 		return null;
 	}
@@ -180,7 +187,7 @@ public class ListObektiActivity<D> extends Activity implements
 	public void onLoadFinished(Loader<Cursor> loader, Cursor loadedCursor) {
 		int loaderId = loader.getId();
 
-		if (loaderId == 0 || loaderId == 2 || loaderId == 3) {
+		if (loaderId == 0 || loaderId == 2 || loaderId == 3 || loaderId==4) {
 			dataAdapter.swapCursor(loadedCursor);
 		} else {
 			DetailedSiteInfoModel selectedSite = new DetailedSiteInfoModel();
@@ -204,16 +211,16 @@ public class ListObektiActivity<D> extends Activity implements
 
 			selectedSite.setWorkingHours(loadedCursor.getString(loadedCursor
 					.getColumnIndex(SitesDB.KEY_WORKINGHOURS)));
-			
-			selectedSite.setLatitude(loadedCursor
-					.getDouble(loadedCursor.getColumnIndex(SitesDB.KEY_LATITUDE)));
-			selectedSite.setLongitude(loadedCursor
-					.getDouble(loadedCursor.getColumnIndex(SitesDB.KEY_LONGITUDE)));
+
+			selectedSite.setLatitude(loadedCursor.getDouble(loadedCursor
+					.getColumnIndex(SitesDB.KEY_LATITUDE)));
+			selectedSite.setLongitude(loadedCursor.getDouble(loadedCursor
+					.getColumnIndex(SitesDB.KEY_LONGITUDE)));
 
 			double lat = locationListener.Latitude;
-			double longitude=locationListener.Longitude;
-			
-			PassToDetailedActivity(selectedSite,lat,longitude);
+			double longitude = locationListener.Longitude;
+
+			PassToDetailedActivity(selectedSite, lat, longitude);
 		}
 
 	}
@@ -237,17 +244,29 @@ public class ListObektiActivity<D> extends Activity implements
 	@Override
 	public void onClick(View v) {
 
-		boolean isGPSEnabled = locationManager
-				.isProviderEnabled(LocationManager.GPS_PROVIDER);
+		switch (v.getId()) {
+		case R.id.getNearSites:
+			boolean isGPSEnabled = locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-		if (isGPSEnabled) {
-			double lat = locationListener.Latitude;
-			double longitude = locationListener.Longitude;
-			coordinates = new CoordinatesModel(lat, longitude);
-			getLoaderManager().restartLoader(3, null, this);
-
-		} else {
-			showGPSDisabledAlertToUser();
+			if (isGPSEnabled) {
+				double lat = locationListener.Latitude;
+				double longitude = locationListener.Longitude;
+				if (lat != 0) {
+					coordinates = new CoordinatesModel(lat, longitude);
+					getLoaderManager().restartLoader(3, null, this);
+				} else {
+					Toast.makeText(this, "Моля включете GPS локацията",
+							Toast.LENGTH_LONG).show();
+				}
+			} else {
+				showGPSDisabledAlertToUser();
+			}
+			break;
+		case R.id.visitedSites:
+			getLoaderManager().restartLoader(4, null, this);
+			break;
+		
 		}
 
 	}
