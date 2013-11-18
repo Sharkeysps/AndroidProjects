@@ -10,7 +10,13 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
 
     <application
         android:allowBackup="true"
@@ -34,7 +40,7 @@
             android:name="com.example.stoobekta.DetailedObektActivity"
             android:label="@string/title_activity_detailed_obekt" >
         </activity>
-            <activity
+        <activity
             android:name="com.example.stoobekta.SiteInfoFragment"
             android:label="@string/title_activity_site_info_fragment" >
         </activity>
@@ -50,7 +56,10 @@
             android:name="com.example.stoobekta.SiteEventsFragment"
             android:label="@string/title_activity_site_events_fragment" >
         </activity>
-    
+        <activity
+            android:name="com.example.stoobekta.VisitedSitesActivity"
+            android:label="@string/title_activity_visited_sites" >
+        </activity>
     </application>
 
 </manifest>

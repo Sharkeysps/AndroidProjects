@@ -9,6 +9,8 @@ public class DetailedSiteInfoModel implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	public String getCity() {
 		return City;
 	}
@@ -58,6 +60,22 @@ public class DetailedSiteInfoModel implements Serializable{
 	public String TicketChild;
 	public String TicketAdult;
 	public String WorkingHours;
+
+	public double Latitude;
+	public double getLatitude() {
+		return Latitude;
+	}
+	public void setLatitude(double latitude) {
+		Latitude = latitude;
+	}
+	public double getLongitude() {
+		return Longitude;
+	}
+	public void setLongitude(double longitude) {
+		Longitude = longitude;
+	}
+	public double Longitude;
+
 
 	
 	

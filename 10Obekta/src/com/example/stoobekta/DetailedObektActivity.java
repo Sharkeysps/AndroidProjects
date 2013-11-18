@@ -35,7 +35,12 @@ public class DetailedObektActivity extends FragmentActivity implements
 		
 		String jsonStr = getIntent().getStringExtra("model");
 		DetailedSiteInfoModel model=new Gson().fromJson(jsonStr, DetailedSiteInfoModel.class);		
-
+		
+		double lat=getIntent().getDoubleExtra("lat", 0);
+		double longitude=getIntent().getDoubleExtra("long", 0);
+		
+		
+		
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
