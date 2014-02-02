@@ -1,0 +1,14 @@
+package com.sharkey.quiz.models;
+
+import android.R.bool;
+
+public class User implements CheckAdmin {
+
+	@Override
+	public boolean IsAdmin() {
+		
+		return false;
+	}
+
+
+}

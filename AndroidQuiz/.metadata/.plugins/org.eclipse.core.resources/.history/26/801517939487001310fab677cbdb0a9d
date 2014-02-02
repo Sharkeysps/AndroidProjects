@@ -1,0 +1,5 @@
+package com.sharkey.quiz.models;
+
+public interface CheckAdmin {
+
+}

@@ -1,0 +1,21 @@
+package com.sharkey.quiz.db;
+
+import android.content.Context;
+import android.database.Cursor;
+
+public class QuizDbAsyncLoader extends SimpleCursorLoader {
+
+	QuizDB db;
+	
+	public QuizDbAsyncLoader(Context context) {
+		super(context);
+		db=QuizDB.getInstance(context);
+		
+	}
+
+	@Override
+	public Cursor loadInBackground() {
+		return db.ListAllQuestions();
+	}
+
+}

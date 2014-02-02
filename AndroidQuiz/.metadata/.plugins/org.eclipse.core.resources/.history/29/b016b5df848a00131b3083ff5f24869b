@@ -1,0 +1,78 @@
+package com.sharkey.quiz;
+
+
+import com.sharkey.quiz.db.QuizDB;
+import com.sharkey.quiz.db.QuizDbAsyncLoader;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Loader;
+import android.database.Cursor;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.util.Log;
+import android.view.Menu;
+import android.widget.ListView;
+
+public class AllQuestionsBrowser extends Activity  implements LoaderCallbacks<Cursor> {
+
+	SimpleCursorAdapter dataAdapter;
+	QuizDB db;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_all_questions_browser);
+		db=QuizDB.getInstance(this);
+		try{
+			FillListView();
+		}catch(Exception ex){
+			Log.d("", ex.getMessage());
+		}
+		
+		
+	}
+
+	public void FillListView(){
+		String[] dataBindFrom = new String[] { "_id",
+				QuizDB.KEY_QUESTION, QuizDB.KEY_RANSWER };
+
+		int[] dataBindTo = new int[] { R.id.questionNumber, R.id.questionName,
+				R.id.rightAnswer, };
+
+		Cursor c=db.ListAllQuestions();
+		dataAdapter = new SimpleCursorAdapter(this,
+				R.layout.questions_model, c, dataBindFrom, dataBindTo,
+				0);
+
+		ListView listView = (ListView) findViewById(R.id.listViewQuestions);
+		listView.setAdapter(dataAdapter);
+		
+//		listView.setOnItemClickListener(this);
+
+	//	getLoaderManager().initLoader(0, null, this);
+	}
+
+	
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		return new QuizDbAsyncLoader(this);
+	}
+	
+	public void onLoadFinished(Loader<Cursor> loader, Cursor loadedCursor) {
+			dataAdapter.swapCursor(loadedCursor);
+
+	}
+
+	public void onLoaderReset(Loader<Cursor> arg0) {
+		dataAdapter.swapCursor(null);
+
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.all_questions_browser, menu);
+		return true;
+	}
+
+}

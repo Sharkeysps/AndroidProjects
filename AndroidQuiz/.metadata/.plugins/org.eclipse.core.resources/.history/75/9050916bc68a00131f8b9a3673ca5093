@@ -1,0 +1,8 @@
+package com.sharkey.quiz.models;
+
+public class Question {
+	public String Question;
+	public String WrongAnswerOne;
+	public String WrongAnswerTwo;
+	public String RightAnswer;
+}

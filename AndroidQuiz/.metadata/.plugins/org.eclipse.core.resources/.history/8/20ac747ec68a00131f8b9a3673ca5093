@@ -1,0 +1,8 @@
+package com.sharkey.quiz.models;
+
+import android.R.bool;
+
+public interface CheckAdmin {
+
+	public boolean IsAdmin();
+}

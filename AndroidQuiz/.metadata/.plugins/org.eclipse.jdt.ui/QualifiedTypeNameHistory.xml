@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.readystatesoftware.sqliteasset.SQLiteAssetHelper"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteDatabase"/>
+<fullyQualifiedTypeName name="android.database.sqlite.SQLiteQueryBuilder"/>
+<fullyQualifiedTypeName name="android.content.ContentValues"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.models.IRegister"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="android.R.bool"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.db.SimpleCursorLoader"/>
+<fullyQualifiedTypeName name="android.support.v4.widget.SimpleCursorAdapter"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.db.QuizDbAsyncLoader"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.AllQuestionsBrowser"/>
+<fullyQualifiedTypeName name="android.database.Cursor"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.EditQuestion"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.RegisterUserActivity"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.MainActivity"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.models.User"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.models.Admin"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.models.Player"/>
+<fullyQualifiedTypeName name="android.R.integer"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.db.QuizDB"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.QuestionPanel"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="android.widget.RadioGroup"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.models.Question"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.R.id"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="com.sharkey.quiz.PlayerPanel"/>
+<fullyQualifiedTypeName name="android.widget.RadioButton"/>
+</qualifiedTypeNameHistroy>

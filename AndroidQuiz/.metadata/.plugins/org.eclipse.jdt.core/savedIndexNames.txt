@@ -1,0 +1,15 @@
+INDEX VERSION 1.126+D:\Informatik\Android Projects\AndroidQuiz\.metadata\.plugins\org.eclipse.jdt.core
+2996433455.index
+560811959.index
+3574986683.index
+2498296391.index
+1573173961.index
+2460030194.index
+2892136446.index
+92090082.index
+746011463.index
+1467968065.index
+514154343.index
+2063172157.index
+2584893224.index
+4244346418.index

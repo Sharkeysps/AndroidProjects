@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;SimpleCursorLoader.java&apos; to &apos;Quiz/src/com.sharkey.quiz.db&apos;&#x0D;&#x0A;- Original project: &apos;StoObekta&apos;&#x0D;&#x0A;- Destination element: &apos;Quiz/src/com.sharkey.quiz.db&apos;&#x0D;&#x0A;- Original element: &apos;com.example.stoobekta.db.SimpleCursorLoader.java&apos;" description="Copy compilation unit" destination="=Quiz/src&lt;com.sharkey.quiz.db" element1="/src&lt;com.example.stoobekta.db{SimpleCursorLoader.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1391177495263" units="1" version="1.0"/>
+</session>

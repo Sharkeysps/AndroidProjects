@@ -1,0 +1,75 @@
+package com.sharkey.quiz;
+
+import com.sharkey.quiz.db.QuizDB;
+import com.sharkey.quiz.models.User;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class RegisterUserActivity extends Activity  implements OnClickListener{
+
+	private Button backButton;
+	private Button registerUserButton;
+	private EditText username;
+	private EditText password;
+	private String userRights;
+	QuizDB db;
+	User newUser;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.register_user_activity);
+		
+		db=QuizDB.getInstance(this);
+		
+		Intent intent=getIntent();
+		userRights=intent.getStringExtra("rights");
+		
+		backButton=(Button)findViewById(R.id.backToLogin);
+		backButton.setOnClickListener(this);
+		
+		registerUserButton=(Button)findViewById(R.id.registerUserBtn);
+		registerUserButton.setOnClickListener(this);
+		
+		username=(EditText)findViewById(R.id.registerUsername);
+		password=(EditText)findViewById(R.id.registerPassword);
+		
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.register_user, menu);
+		return true;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.backToLogin:
+		Intent backToLoginIntent=new Intent(this,MainActivity.class);
+		startActivity(backToLoginIntent);
+			break;
+
+		case R.id.registerUserBtn:
+			boolean check=CheckRegisterData();
+			if(check){
+				db.AddUser(newUser)
+			}
+			break;
+		}
+		
+	}
+	
+	private boolean CheckRegisterData(){
+		
+	}
+
+}

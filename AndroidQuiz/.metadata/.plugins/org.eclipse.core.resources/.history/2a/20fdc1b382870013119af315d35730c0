@@ -1,0 +1,64 @@
+package com.sharkey.quiz.db;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+
+public class QuizDB extends SQLiteAssetHelper {
+	
+	
+	private static QuizDB sInstance = null;
+	
+	private static final String DATABASE_NAME = "QuizDB";
+	private static final int DATABASE_VERSION = 4;
+	public static final String KEY_ROWID = "0 _id";
+	public static final String KEY_USERNAME = "USERNAME";
+	public static final String USERS_TABLE="USERS";
+	public static final String KEY_PASSWORD = "PASSWORD";
+	
+	public static QuizDB getInstance(Context context) {
+		if (sInstance == null) {
+			sInstance = new QuizDB(context.getApplicationContext());
+		}
+		return sInstance;
+	}
+	
+	
+	private QuizDB(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		setForcedUpgradeVersion(4);
+
+	}
+	
+	public Cursor ListAllUsers(){
+		
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		String[] sqlSelect = { KEY_ROWID, KEY_USERNAME,KEY_PASSWORD};
+		String sqlTables = USERS_TABLE;
+
+		qb.setTables(sqlTables);
+		Cursor c = qb.query(db, sqlSelect, null, null, null, null, null);
+
+		c.moveToFirst();
+		return c;
+	}
+	
+	public void AddUser(){
+		
+		SQLiteDatabase db = getWritableDatabase();
+
+		ContentValues insertValues = new ContentValues();
+		insertValues.put("USERNAME", "Electricity");
+		insertValues.put("PASSWORD", 500);
+		insertValues.put("POINTS", 1);
+
+		db.insert( USERS_TABLE, null, insertValues);
+	}
+
+}

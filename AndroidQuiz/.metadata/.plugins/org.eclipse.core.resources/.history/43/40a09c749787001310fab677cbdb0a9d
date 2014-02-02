@@ -1,0 +1,105 @@
+package com.sharkey.quiz.db;
+
+import android.R.bool;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+import com.sharkey.quiz.models.User;
+
+public class QuizDB extends SQLiteAssetHelper {
+	
+	
+	private static QuizDB sInstance = null;
+	
+	private static final String DATABASE_NAME = "QuizDB";
+	private static final int DATABASE_VERSION = 4;
+	public static final String KEY_ROWID = "0 _id";
+	public static final String KEY_USERNAME = "USERNAME";
+	public static final String USERS_TABLE="USERS";
+	public static final String KEY_PASSWORD = "PASSWORD";
+	public static final String KEY_ISADMIN="ISADMIN";
+	public static final String KEY_POINTS="POINTS";
+	
+	public static QuizDB getInstance(Context context) {
+		if (sInstance == null) {
+			sInstance = new QuizDB(context.getApplicationContext());
+		}
+		return sInstance;
+	}
+	
+	
+	private QuizDB(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		setForcedUpgradeVersion(4);
+
+	}
+	
+	
+	
+	public Cursor ListAllUsers(){
+		
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+		String[] sqlSelect = { KEY_ROWID, KEY_USERNAME,KEY_PASSWORD};
+		String sqlTables = USERS_TABLE;
+
+		qb.setTables(sqlTables);
+		Cursor c = qb.query(db, sqlSelect, null, null, null, null, null);
+
+		c.moveToFirst();
+		return c;
+	}
+	
+	public void AddUser(User newUser){
+		
+		SQLiteDatabase db = getWritableDatabase();
+
+		ContentValues insertValues = new ContentValues();
+		insertValues.put(KEY_USERNAME, newUser.getUsername());
+		insertValues.put(KEY_PASSWORD, newUser.getPassword());
+		insertValues.put(KEY_POINTS, 0);
+		insertValues.put(KEY_ISADMIN,newUser.IsAdmin());
+
+		db.insert( USERS_TABLE, null, insertValues);
+		
+	}
+	
+	public boolean CheckLogin(String username,String password){
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		
+		String[] sqlSelect = { KEY_ROWID, KEY_USERNAME,KEY_PASSWORD};
+		String sqlTables = USERS_TABLE;
+		
+		qb.setTables(sqlTables);
+		Cursor c = qb.query(db, sqlSelect, "USERNAME=? AND PASSWORD=?", new String[] { username,password },
+				null, null, null);
+		if(c.getCount()==0){
+			return false;
+		}
+		return true;
+	}
+
+	public boolean CheckIfUsernameExists(String username){
+		SQLiteDatabase db = getReadableDatabase();
+		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+		
+		String[] sqlSelect = { KEY_ROWID, KEY_USERNAME};
+		String sqlTables = USERS_TABLE;
+		
+		qb.setTables(sqlTables);
+		Cursor c = qb.query(db, sqlSelect, "USERNAME=?", new String[] { username },
+				null, null, null);
+		if(c.getCount()==0){
+			return false;
+		}
+		return true;
+
+	}
+	
+}

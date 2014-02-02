@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Quiz</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_register_user">RegisterUserActivity</string>
+    <string name="title_activity_all_questions_browser">AllQuestionsBrowser</string>
+    <string name="title_activity_edit_question">EditQuestion</string>
+    <string name="title_activity_admin_panel">AdminPanel</string>
+    <string name="adminPanelText">This is the admin panel.Here you can add new questions,see all available ones and edit them.You can also add new admins</string>
+    <string name="title_activity_player_panel">PlayerPanel</string>
+
+</resources>

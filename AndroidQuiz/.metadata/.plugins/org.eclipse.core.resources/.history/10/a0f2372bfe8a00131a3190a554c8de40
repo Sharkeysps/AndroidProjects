@@ -1,0 +1,57 @@
+package com.sharkey.quiz;
+
+import com.sharkey.quiz.db.QuizDB;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends Activity implements OnClickListener {
+
+	Button loginButton;
+	EditText username;
+	EditText password;
+	QuizDB db;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        db=QuizDB.getInstance(this);
+        
+        username=(EditText)findViewById(R.id.username);
+        password=(EditText)findViewById(R.id.password);
+        
+        loginButton=(Button)findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(this);
+        
+        
+        
+    }
+
+
+ 
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+	@Override
+	public void onClick(View v) {
+		boolean test=db.CheckLogin(username.getText().toString(), 
+				password.getText().toString());
+		Toast.makeText(this, test+"", Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, AllQuestionsBrowser.class);
+		startActivity(intent);
+	}
+    
+}

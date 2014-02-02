@@ -1,0 +1,9 @@
+package com.sharkey.quiz.models;
+
+public class Player {
+
+	protected String usernameString;
+	
+	
+	
+}
