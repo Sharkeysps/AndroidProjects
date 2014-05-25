@@ -1,12 +1,11 @@
 package com.example.stoobekta.helpers;
 
-import com.example.stoobekta.db.SitesDB;
-
-import android.R.integer;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.example.stoobekta.db.SitesDB;
 
 public class GPSCoordinateChecker {
 

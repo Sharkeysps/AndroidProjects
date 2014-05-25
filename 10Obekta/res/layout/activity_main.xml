@@ -4,42 +4,52 @@
  android:orientation="vertical"
  android:background="#FFE4C4">
 
-    <TextView
-        android:id="@+id/textView1"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/mybutton"
+        android:text="Обекти" />
+
+    <Button
+        android:id="@+id/optionsButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rankingButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/mybutton"
+        android:text="Настройки" />
+
+    <Button
+        android:id="@+id/rankingButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/mybutton"
+        android:text="Класация" />
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="100те национални обека"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_alignRight="@+id/button1"
+        android:src="@drawable/logo100" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:id="@+id/helpButton"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/button2"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="25dp"
-        android:text="Обекти" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button1"
-        android:layout_toRightOf="@+id/button2"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="50dp"
-        android:text="Класация" />
+        android:layout_alignRight="@+id/optionsButton"
+        android:layout_below="@+id/optionsButton"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/mybutton"
+        android:text="Помощ" />
  
 </RelativeLayout>

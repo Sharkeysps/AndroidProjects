@@ -5,16 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 
  
-/**
- * Used to write apps that run on platforms prior to Android 3.0.  When running
- * on Android 3.0 or above, this implementation is still used; it does not try
- * to switch to the framework's implementation.  See the framework SDK
- * documentation for a class overview.
- *
- * This was based on the CursorLoader class
- *
- * @author cristian
- */
+
 public abstract class SimpleCursorLoader extends AsyncTaskLoader<Cursor> {
     private Cursor mCursor;
  
@@ -48,13 +39,7 @@ public abstract class SimpleCursorLoader extends AsyncTaskLoader<Cursor> {
         }
     }
  
-    /**
-     * Starts an asynchronous load of the contacts list data. When the result is ready the callbacks
-     * will be called on the UI thread. If a previous load has been completed and is still valid
-     * the result may be passed to the callbacks immediately.
-     * <p/>
-     * Must be called from the UI thread
-     */
+
     @Override
     protected void onStartLoading() {
         if (mCursor != null) {
@@ -65,9 +50,7 @@ public abstract class SimpleCursorLoader extends AsyncTaskLoader<Cursor> {
         }
     }
  
-    /**
-     * Must be called from the UI thread
-     */
+
     @Override
     protected void onStopLoading() {
         // Attempt to cancel the current load task if possible.

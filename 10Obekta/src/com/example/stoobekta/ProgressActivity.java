@@ -1,37 +1,32 @@
 package com.example.stoobekta;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.stoobekta.db.SitesDB;
-import com.example.stoobekta.db.SitesDBCursorLoader;
-import com.example.stoobekta.helpers.HttpPersister;
-import com.example.stoobekta.models.CommentModel;
-import com.example.stoobekta.models.CommentsModel;
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import android.os.Bundle;
-import android.provider.Settings.Secure;
-import android.R.integer;
-import android.animation.ArgbEvaluator;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
-import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.stoobekta.db.SitesDB;
+import com.example.stoobekta.db.SitesDBCursorLoader;
+import com.example.stoobekta.helpers.HttpPersister;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class ProgressActivity extends Activity implements
 		LoaderCallbacks<Cursor> {
@@ -41,7 +36,7 @@ public class ProgressActivity extends Activity implements
 	TextView currentRank;
 	String androidId;
 	private int VisitedSitesCount;
-	private boolean refreshedRanking=false;
+	private boolean refreshedRanking = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +55,15 @@ public class ProgressActivity extends Activity implements
 		this.VisitedSitesCount = count;
 		progressBar.setProgress(count);
 		visitedSites.setText("Посетени обекти:" + count + "/100");
-		GetCurrentUserRank();
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		boolean receiveRankingData = settings.getBoolean("receiveRankingData",
+				true);
+		if (receiveRankingData) {
+			GetCurrentUserRank();
+		} else {
+			Toast.makeText(this, "Класирането е спряно от настройки", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void GetCurrentUserRank() {
@@ -72,12 +75,11 @@ public class ProgressActivity extends Activity implements
 					public void onSuccess(String response) {
 
 						int count = Integer.valueOf(response) + 1;
-						if (refreshedRanking==false) {
+						if (refreshedRanking == false) {
 							SendTouristData();
 						}
 						currentRank.setText("Вашата позиция в класацията е:"
 								+ count);
-
 					}
 
 				});
@@ -106,7 +108,7 @@ public class ProgressActivity extends Activity implements
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-						refreshedRanking=true;
+						refreshedRanking = true;
 						GetCurrentUserRank();
 
 					}

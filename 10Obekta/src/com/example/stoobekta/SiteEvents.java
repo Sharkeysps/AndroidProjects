@@ -1,24 +1,10 @@
 package com.example.stoobekta;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-import com.example.stoobekta.db.SitesDB;
-import com.example.stoobekta.helpers.HttpPersister;
-import com.example.stoobekta.models.CommentModel;
-import com.example.stoobekta.models.CommentsModel;
-import com.example.stoobekta.models.DetailedSiteInfoModel;
-import com.example.stoobekta.models.EventModel;
-import com.example.stoobekta.models.SiteEventsModel;
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import android.R.integer;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Event;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.stoobekta.helpers.HttpPersister;
+import com.example.stoobekta.models.DetailedSiteInfoModel;
+import com.example.stoobekta.models.EventModel;
+import com.example.stoobekta.models.SiteEventsModel;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class SiteEvents {
 
@@ -61,14 +53,16 @@ public class SiteEvents {
 								View item, int position, long id) {
 
 							EventModel selected = adapter.getItem(position);
-							
+
 							String message;
-							if(selected.DateOfEvent==null){
-								message=selected.Description+" ще се проведе в "+model.Name;
-							}
-							else{
-								message=selected.Description+" ще се проведе в "
-							+model.Name+" от " +selected.DateOfEvent+ "часа";
+							if (selected.DateOfEvent == null) {
+								message = selected.Description
+										+ " ще се проведе в " + model.Name;
+							} else {
+								message = selected.Description
+										+ " ще се проведе в " + model.Name
+										+ " от " + selected.DateOfEvent
+										+ "часа";
 
 							}
 							EventNotification(message);
@@ -78,13 +72,11 @@ public class SiteEvents {
 
 			return rootView;
 		}
-		
-		
+
 		private void EventNotification(String message) {
 			new AlertDialog.Builder(getActivity())
 					.setTitle("Информация за събитието")
-					.setMessage(
-							message)
+					.setMessage(message)
 					.setPositiveButton("Добре",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,

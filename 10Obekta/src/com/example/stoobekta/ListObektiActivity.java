@@ -1,18 +1,5 @@
 package com.example.stoobekta;
 
-import com.example.stoobekta.db.SitesDB;
-import com.example.stoobekta.db.SitesDBCursorLoader;
-import com.example.stoobekta.helpers.GPSLocationListener;
-import com.example.stoobekta.models.CoordinatesModel;
-import com.example.stoobekta.models.DetailedSiteInfoModel;
-import com.google.gson.Gson;
-
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.R.bool;
-import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -21,20 +8,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.example.stoobekta.db.SitesDB;
+import com.example.stoobekta.db.SitesDBCursorLoader;
+import com.example.stoobekta.helpers.GPSLocationListener;
+import com.example.stoobekta.models.CoordinatesModel;
+import com.example.stoobekta.models.DetailedSiteInfoModel;
+import com.google.gson.Gson;
 
 public class ListObektiActivity<D> extends Activity implements
 		OnItemClickListener, LoaderCallbacks<Cursor>, OnClickListener {
@@ -60,7 +55,7 @@ public class ListObektiActivity<D> extends Activity implements
 
 		this.locationListener = new GPSLocationListener();
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,
+		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
 				1000, 500, locationListener);
 
 		getNearSitesButton = (Button) findViewById(R.id.getNearSites);
@@ -78,6 +73,7 @@ public class ListObektiActivity<D> extends Activity implements
 					int after) {
 			}
 
+			@SuppressWarnings("unchecked")
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 
@@ -109,7 +105,7 @@ public class ListObektiActivity<D> extends Activity implements
 
 							}
 						});
-		alertDialogBuilder.setNegativeButton("Не мерси",
+		alertDialogBuilder.setNegativeButton("Не благодаря",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();

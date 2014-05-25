@@ -8,22 +8,8 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.stoobekta.helpers.HttpPersister;
-import com.example.stoobekta.helpers.InternetConnectionChecker;
-import com.example.stoobekta.models.CommentModel;
-import com.example.stoobekta.models.CommentsModel;
-import com.example.stoobekta.models.DetailedSiteInfoModel;
-import com.example.stoobekta.models.PostCommentModel;
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import android.R.integer;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -34,7 +20,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import com.example.stoobekta.helpers.HttpPersister;
+import com.example.stoobekta.helpers.InternetConnectionChecker;
+import com.example.stoobekta.models.CommentModel;
+import com.example.stoobekta.models.CommentsModel;
+import com.example.stoobekta.models.DetailedSiteInfoModel;
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class SiteComments {
 
@@ -131,6 +124,7 @@ public class SiteComments {
 				try {
 					jdata.put("Comment", commentText.getText().toString());
 					jdata.put("SiteID", model.Number);
+					jdata.put("UserName","Test");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -154,6 +148,6 @@ public class SiteComments {
 
 		}
 
-	}// end of fragment
+	}
 
 }

@@ -17,13 +17,6 @@ public class HttpPersister {
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(context, getAbsoluteUrl(url), params, responseHandler);
 	}
-
-//	public static void Post(Context context, String url, RequestParams params,
-//			AsyncHttpResponseHandler responseHandler) {
-//		AsyncHttpClient client = new AsyncHttpClient();
-//	//	client.post(context, url, entity, "application/json", responseHandler)
-//		client.post(context, getAbsoluteUrl(url), params, responseHandler);
-//	}
 	
 	public static void Post(Context context, String url, StringEntity entity,
 			AsyncHttpResponseHandler responseHandler) {

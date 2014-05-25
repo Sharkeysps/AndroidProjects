@@ -1,11 +1,5 @@
 package com.example.stoobekta;
 
-import com.example.stoobekta.adapters.TabsPagerAdapter;
-import com.example.stoobekta.helpers.GPSCoordinateChecker;
-import com.example.stoobekta.models.DetailedSiteInfoModel;
-import com.google.gson.Gson;
-
-import android.R.integer;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -16,6 +10,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.stoobekta.adapters.TabsPagerAdapter;
+import com.example.stoobekta.helpers.GPSCoordinateChecker;
+import com.example.stoobekta.models.DetailedSiteInfoModel;
+import com.google.gson.Gson;
 
 public class DetailedObektActivity extends FragmentActivity implements
 		ActionBar.TabListener {

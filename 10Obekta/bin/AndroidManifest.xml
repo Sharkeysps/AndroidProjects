@@ -64,6 +64,10 @@
             android:name="com.example.stoobekta.ProgressActivity"
             android:label="@string/title_activity_progress" >
         </activity>
+        <activity
+            android:name="com.example.stoobekta.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>
