@@ -1,11 +1,11 @@
 package com.example.stoobekta.adapters;
 
-import com.example.stoobekta.SiteComments;
-import com.example.stoobekta.SiteEvents;
-import com.example.stoobekta.SiteInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.stoobekta.SiteComments;
+import com.example.stoobekta.SiteInfo;
 
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
@@ -21,17 +21,13 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
 			
 		case 1:
 			return SiteComments.returnCommentFragment();
-			
-			
-		case 2:
-			return SiteEvents.getSiteEventsFragment();
 		}
 		return null;
 	}
 
 	@Override
 	public int getCount(){
-		return 3;
+		return 2;
 	}
 
 }

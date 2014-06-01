@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.stoobekta.db.SitesDB;
 import com.example.stoobekta.db.SitesDBCursorLoader;
+import com.example.stoobekta.helpers.GPSCoordinateChecker;
 import com.example.stoobekta.helpers.GPSLocationListener;
 import com.example.stoobekta.models.CoordinatesModel;
 import com.example.stoobekta.models.DetailedSiteInfoModel;
@@ -41,6 +44,7 @@ public class ListObektiActivity<D> extends Activity implements
 	GPSLocationListener locationListener;
 	private LocationManager locationManager;
 	private Button getVisitedSitesButton;
+	private boolean guideToSite;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +60,16 @@ public class ListObektiActivity<D> extends Activity implements
 		this.locationListener = new GPSLocationListener();
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				1000, 500, locationListener);
+				200, 500, locationListener);
 
 		getNearSitesButton = (Button) findViewById(R.id.getNearSites);
-		getVisitedSitesButton=(Button)findViewById(R.id.visitedSites);
+		getVisitedSitesButton = (Button) findViewById(R.id.visitedSites);
 		getVisitedSitesButton.setOnClickListener(this);
 		getNearSitesButton.setOnClickListener(this);
+
+		SharedPreferences settings = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		guideToSite = settings.getBoolean("guide", false);
 
 		EditText myFilter = (EditText) findViewById(R.id.myFilter);
 		myFilter.addTextChangedListener(new TextWatcher() {
@@ -105,10 +113,35 @@ public class ListObektiActivity<D> extends Activity implements
 
 							}
 						});
-		alertDialogBuilder.setNegativeButton("Не благодаря",
+		alertDialogBuilder.setNegativeButton("Не мерси",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
+					}
+				});
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
+	}
+
+	private void showChoiceForGuideOrInfoDialog(
+			final DetailedSiteInfoModel model, final double latitude,
+			final double longitude) {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+				.setMessage("Къде искате да отидете?")
+				.setCancelable(false)
+				.setPositiveButton("Информацията за обекта",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								PassToDetailedActivity(model, latitude,
+										longitude);
+
+							}
+						});
+		alertDialogBuilder.setNegativeButton("Насочване към обекта",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						PassToGuideActivity(latitude, longitude);
 					}
 				});
 		AlertDialog alert = alertDialogBuilder.create();
@@ -135,24 +168,24 @@ public class ListObektiActivity<D> extends Activity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		 getMenuInflater().inflate(R.menu.list_obekti, menu);
+		getMenuInflater().inflate(R.menu.list_obekti, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.home_button:
-	        	 Intent homeIntent = new Intent(this, MainActivity.class);
-	             homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	             startActivity(homeIntent);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.home_button:
+			Intent homeIntent = new Intent(this, MainActivity.class);
+			homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(homeIntent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> listView, View view, int position,
 			long id) {
@@ -170,24 +203,26 @@ public class ListObektiActivity<D> extends Activity implements
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		if (id == 0) {
 			// All sites
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 0,
-					"", null);
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					SitesDBCursorLoader.NATIONAL_SITES_LOADER, "", null);
 		} else if (id == 1) {
 			// Specific site search query
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 1,
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					SitesDBCursorLoader.DETAILED_INFO_LOADER,
 					args.getString("number"), null);
 		} else if (id == 2) {
 			// Search functionality
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 2,
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					SitesDBCursorLoader.SEARCH_SITES_LOADER,
 					args.getString("number"), null);
 		} else if (id == 3) {
 			// Sites near you
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 3,
-					null, coordinates);
-		}else if(id==4){
-			//Visited sites
-			return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 4,
-					null, null);
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					SitesDBCursorLoader.NEAR_SITES_LOADER, null, coordinates);
+		} else if (id == 4) {
+			// Visited sites
+			return new SitesDBCursorLoader(this, SitesDB.getInstance(this),
+					SitesDBCursorLoader.VISITED_SITES_LOADER, null, null);
 		}
 		return null;
 	}
@@ -196,7 +231,7 @@ public class ListObektiActivity<D> extends Activity implements
 	public void onLoadFinished(Loader<Cursor> loader, Cursor loadedCursor) {
 		int loaderId = loader.getId();
 
-		if (loaderId == 0 || loaderId == 2 || loaderId == 3 || loaderId==4) {
+		if (loaderId == 0 || loaderId == 2 || loaderId == 3 || loaderId == 4) {
 			dataAdapter.swapCursor(loadedCursor);
 		} else {
 			DetailedSiteInfoModel selectedSite = new DetailedSiteInfoModel();
@@ -229,7 +264,15 @@ public class ListObektiActivity<D> extends Activity implements
 			double lat = locationListener.Latitude;
 			double longitude = locationListener.Longitude;
 
-			PassToDetailedActivity(selectedSite, lat, longitude);
+			boolean isGPSEnabled = locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER);
+			
+			if (isGPSEnabled && guideToSite) {
+				showChoiceForGuideOrInfoDialog(selectedSite, lat, longitude);
+			} else {
+				PassToDetailedActivity(selectedSite, lat, longitude);
+			}
+
 		}
 
 	}
@@ -240,14 +283,23 @@ public class ListObektiActivity<D> extends Activity implements
 
 	}
 
+	private void PassToGuideActivity(double latitude, double longitude) {
+		GPSCoordinateChecker.CurrentSiteLatitude = latitude;
+		GPSCoordinateChecker.CurrentSiteLongitude = longitude;
+
+		Intent guideActivityIntent = new Intent(this, GuideActivity.class);
+		startActivity(guideActivityIntent);
+	}
+
 	private void PassToDetailedActivity(DetailedSiteInfoModel model,
 			double latitude, double longitude) {
-		Intent i = new Intent(this, DetailedObektActivity.class);
+		Intent detailedSiteActivity = new Intent(this,
+				DetailedObektActivity.class);
 		String serializedString = new Gson().toJson(model);
-		i.putExtra("lat", latitude);
-		i.putExtra("long", longitude);
-		i.putExtra("model", serializedString);
-		startActivity(i);
+		detailedSiteActivity.putExtra("lat", latitude);
+		detailedSiteActivity.putExtra("long", longitude);
+		detailedSiteActivity.putExtra("model", serializedString);
+		startActivity(detailedSiteActivity);
 	}
 
 	@Override
@@ -275,7 +327,7 @@ public class ListObektiActivity<D> extends Activity implements
 		case R.id.visitedSites:
 			getLoaderManager().restartLoader(4, null, this);
 			break;
-		
+
 		}
 
 	}

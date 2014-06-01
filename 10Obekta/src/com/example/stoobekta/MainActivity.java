@@ -11,23 +11,23 @@ import android.widget.EditText;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	Button button1;
-	Button button2;
+	Button sitesListButton;
+	Button rankingButton;
 	Button optionsButton;
 	EditText editText;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		super.onCreate(savedInstanceState);
-
-		// editText=(EditText)findViewById(R.id.editText1);
-		button1 = (Button) findViewById(R.id.button1);
-		button1.setOnClickListener(this);
-
-		button2 = (Button) findViewById(R.id.rankingButton);
-		button2.setOnClickListener(this);
+		
+		sitesListButton = (Button) findViewById(R.id.button1);
+		sitesListButton.setOnClickListener(this);
+		
+		rankingButton = (Button) findViewById(R.id.rankingButton);
+		rankingButton.setOnClickListener(this);
 
 		optionsButton = (Button) findViewById(R.id.optionsButton);
 		optionsButton.setOnClickListener(this);
@@ -57,7 +57,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					SettingsActivity.class);
 			startActivity(settingsActivity);
 			break;
-
 		}
 
 	}

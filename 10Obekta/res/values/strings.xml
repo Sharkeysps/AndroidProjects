@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">100 национални обекта</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">FUUU</string>
+    <string name="action_settings">Настройки</string>
+    <string name="hello_world">Test</string>
     <string name="some_hint">Напишете номера който търсите</string>
     <string name="some_text">100те национални обекта</string>
     <string name="title_activity_list_obekti">Списък с обекти</string>
@@ -27,10 +27,12 @@
     <string name="events_desc">Тук може да видите предстоящи събития ако има такива:</string>
     <string name="send_comment_hint">Напишете вашият коментар тук</string>
     <string name="title_activity_visited_sites">VisitedSitesActivity</string>
-    <string name="visited_sites_btn">Посетени обекти:</string>
+    <string name="visited_sites_btn">Посетени обекти</string>
     <string name="title_activity_progress">Прогрес и класация</string>
     <string name="progress_title">Прогрес на посетените обекти и класация:</string>
     <string name="progress_ranking">Класация</string>
     <string name="progress_bar_title">Прогрес:</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="title_activity_guide">Посока към обекта</string>
 
 </resources>

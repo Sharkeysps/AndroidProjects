@@ -1,25 +1,20 @@
 package com.example.stoobekta;
 
-import java.util.ArrayList;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Activity;
+import android.hardware.GeomagneticField;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import com.example.stoobekta.helpers.HttpPersister;
-import com.example.stoobekta.models.DetailedSiteInfoModel;
-import com.example.stoobekta.models.EventModel;
-import com.example.stoobekta.models.SiteEventsModel;
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+import android.widget.Toast;
 
 public class SiteEvents {
 
@@ -27,11 +22,26 @@ public class SiteEvents {
 		return new SiteEventsFragment();
 	}
 
-	public static class SiteEventsFragment extends Fragment {
+	public static class SiteEventsFragment extends Fragment implements
+			LocationListener, SensorEventListener {
 
-		private ArrayAdapter<EventModel> adapter;
-		private ListView eventsListView;
-		private DetailedSiteInfoModel model;
+		@Override
+		public void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			mSensorManager = (SensorManager) this.getActivity()
+					.getSystemService(Activity.SENSOR_SERVICE);
+		}
+
+		private LocationManager locationManager;
+		private Location targetLocation;
+		GeomagneticField geoField;
+
+		private SensorManager mSensorManager;
+		private Sensor mOrientation;
+
+		private final int sensorType = Sensor.TYPE_ROTATION_VECTOR;
+		float[] rotMat = new float[9];
+		float[] vals = new float[3];
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
@@ -39,80 +49,206 @@ public class SiteEvents {
 			View rootView = inflater.inflate(R.layout.fragment_site_events,
 					container, false);
 
-			String jsonStr = getActivity().getIntent().getStringExtra("model");
-			model = new Gson().fromJson(jsonStr, DetailedSiteInfoModel.class);
-
-			eventsListView = (ListView) rootView.findViewById(R.id.lv_events);
-
-			GetAllEvents();
-
-			eventsListView
-					.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-						@Override
-						public void onItemClick(AdapterView<?> parent,
-								View item, int position, long id) {
-
-							EventModel selected = adapter.getItem(position);
-
-							String message;
-							if (selected.DateOfEvent == null) {
-								message = selected.Description
-										+ " ще се проведе в " + model.Name;
-							} else {
-								message = selected.Description
-										+ " ще се проведе в " + model.Name
-										+ " от " + selected.DateOfEvent
-										+ "часа";
-
-							}
-							EventNotification(message);
-
-						}
-					});
+//			mSensorManager = (SensorManager) getActivity().getSystemService(
+//					Context.SENSOR_SERVICE);
+//			mOrientation = mSensorManager
+//					.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+//			mSensorManager.registerListener(this, mOrientation,
+//					SensorManager.SENSOR_DELAY_NORMAL);
+//
+//			targetLocation = new Location("newLocation");
+//			targetLocation
+//					.setLatitude(GPSCoordinateChecker.CurrentSiteLatitude);
+//			targetLocation
+//					.setLongitude(GPSCoordinateChecker.CurrentSiteLongitude);
+//
+//			locationManager = (LocationManager) getActivity().getSystemService(
+//					Context.LOCATION_SERVICE);
+//			locationManager.requestLocationUpdates(
+//					LocationManager.GPS_PROVIDER, 1000, 500, this);
 
 			return rootView;
 		}
 
-		private void EventNotification(String message) {
-			new AlertDialog.Builder(getActivity())
-					.setTitle("Информация за събитието")
-					.setMessage(message)
-					.setPositiveButton("Добре",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// continue with delete
-								}
-							}).show();
+		@Override
+		public void onSensorChanged(SensorEvent event) {
+			Toast.makeText(getActivity(), "Sensor event", Toast.LENGTH_LONG).show();
 		}
 
-		private void GetAllEvents() {
-			HttpPersister.Get(getActivity(), "event/" + model.Number, null,
-					new AsyncHttpResponseHandler() {
-						@Override
-						public void onSuccess(String response) {
-							Gson gson = new Gson();
-							SiteEventsModel receivedEventsModel = gson
-									.fromJson(response, SiteEventsModel.class);
-
-							FillEventList((ArrayList<EventModel>) receivedEventsModel.Events);
-
-						}
-					});
-
+		@Override
+		public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		}
 
-		private void FillEventList(ArrayList<EventModel> events) {
+		@Override
+		public void setMenuVisibility(boolean menuVisible) {
+			super.setMenuVisibility(menuVisible);
 
-			try {
-				adapter = new ArrayAdapter<EventModel>(getActivity(),
-						android.R.layout.simple_list_item_1, events);
+			// First starts (gets called before everything else)
+			if (mSensorManager == null) {
+				return;
+			}
 
-				eventsListView.setAdapter(adapter);
-			} catch (Exception ex) {
-				Log.d("d", ex.getMessage());
+			if (menuVisible) {
+				this.registerSensorListener();
+			} else {
+				this.unregisterSensorListener();
 			}
 		}
 
+		@Override
+		public void onStart() {
+			super.onStart();
+
+			if (this.getUserVisibleHint()) {
+				this.registerSensorListener();
+			}
+		}
+
+		@Override
+		public void onStop() {
+			super.onStop();
+			this.unregisterSensorListener();
+		}
+
+		private void registerSensorListener() {
+			mSensorManager.registerListener(this,
+					mSensorManager.getSensorList(Sensor.TYPE_ROTATION_VECTOR)
+							.get(0), SensorManager.SENSOR_DELAY_FASTEST);
+		}
+
+		private void unregisterSensorListener() {
+			mSensorManager.unregisterListener(this);
+		}
+
+		@Override
+		public void onLocationChanged(Location location) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+
+		}
 	}
 }
+
+//
+//
+//
+//
+// private LocationManager locationManager;
+// private Location targetLocation;
+// GeomagneticField geoField;
+//
+// private SensorManager mSensorManager;
+// private Sensor mOrientation;
+//
+// private final int sensorType = Sensor.TYPE_ROTATION_VECTOR;
+// float[] rotMat = new float[9];
+// float[] vals = new float[3];
+//
+// public View onCreateView(LayoutInflater inflater, ViewGroup container,
+// Bundle savedInstanceState) {
+//
+// View rootView = inflater.inflate(R.layout.fragment_site_events,
+// container, false);
+//
+//
+// mSensorManager =
+// (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+// mOrientation = mSensorManager
+// .getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+// mSensorManager.registerListener(this, mOrientation,
+// SensorManager.SENSOR_DELAY_NORMAL);
+//
+// targetLocation = new Location("newLocation");
+// targetLocation
+// .setLatitude(GPSCoordinateChecker.CurrentSiteLatitude);
+// targetLocation
+// .setLongitude(GPSCoordinateChecker.CurrentSiteLongitude);
+//
+// locationManager = (LocationManager) getActivity().getSystemService(
+// Context.LOCATION_SERVICE);
+// locationManager.requestLocationUpdates(
+// LocationManager.GPS_PROVIDER, 1000, 500, this);
+//
+// return rootView;
+// }
+//
+// @Override
+// public void onLocationChanged(Location location) {
+// geoField = new GeomagneticField(Double.valueOf(
+// location.getLatitude()).floatValue(), Double.valueOf(
+// location.getLongitude()).floatValue(), Double.valueOf(
+// location.getAltitude()).floatValue(),
+// System.currentTimeMillis());
+// double heading = geoField.getDeclination();
+// // Toast.makeText(getActivity(), String.valueOf("Geofiled:"+heading),
+// // Toast.LENGTH_LONG).show();
+//
+// }
+//
+// @Override
+// public void onProviderDisabled(String provider) {
+// // TODO Auto-generated method stub
+//
+// }
+//
+// @Override
+// public void onProviderEnabled(String provider) {
+// // TODO Auto-generated method stub
+//
+// }
+//
+// @Override
+// public void onStatusChanged(String provider, int status, Bundle extras) {
+// // TODO Auto-generated method stub
+//
+// }
+//
+// @Override
+// public void onAccuracyChanged(Sensor sensor, int accuracy) {
+// // TODO Auto-generated method stub
+//
+// }
+//
+// @Override
+// public void onSensorChanged(SensorEvent event) {
+// // It is good practice to check that we received the proper sensor event
+// if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR)
+// {
+// // Convert the rotation-vector to a 4x4 matrix.
+// SensorManager.getRotationMatrixFromVector(rotMat,
+// event.values);
+// SensorManager
+// .remapCoordinateSystem(rotMat,
+// SensorManager.AXIS_X, SensorManager.AXIS_Z,
+// rotMat);
+// SensorManager.getOrientation(rotMat, vals);
+//
+// // Optionally convert the result from radians to degrees
+// vals[0] = (float) Math.toDegrees(vals[0]);
+// vals[1] = (float) Math.toDegrees(vals[1]);
+// vals[2] = (float) Math.toDegrees(vals[2]);
+//
+//
+// Toast.makeText(getActivity(),
+// String.valueOf("Azimuth"+vals[0]+"Test:"+vals[1]), Toast.LENGTH_LONG).show();
+//
+// }
+//
+// }

@@ -11,34 +11,40 @@ import android.database.Cursor;
 public class SitesDBCursorLoader extends SimpleCursorLoader {
 
 	private SitesDB sitesDB;
-	private int loaderId;
+	private String loaderId;
 	private String searchedNumber;
 	private CoordinatesModel coordinates;
+	public static final String NATIONAL_SITES_LOADER="nationalSites";
+	public static final String DETAILED_INFO_LOADER="detailInfo";
+	public static final String SEARCH_SITES_LOADER="searchSites";
+	public static final String VISITED_SITES_LOADER="visitedSites";
+	public static final String NEAR_SITES_LOADER="nearSites";
+	
 	
 	public SitesDBCursorLoader(Context context, SitesDB sitesDB,
-			int loaderId,String searchedNumber,CoordinatesModel coordinates) {
+			String loader,String searchedNumber,CoordinatesModel coordinates) {
 		super(context);
 		this.sitesDB = sitesDB;
-		this.loaderId=loaderId;
+		this.loaderId=loader;
 		this.searchedNumber=searchedNumber;
 		this.coordinates=coordinates;
 	}
 
 	@Override
 	public Cursor loadInBackground() {
-		if(loaderId==0){
-		Cursor loaderCursor = sitesDB.getObekti();
+		if(loaderId.equals(NATIONAL_SITES_LOADER)){
+		Cursor loaderCursor = sitesDB.getNationalSites();
 		return loaderCursor;
-		}else if(loaderId==1){
+		}else if(loaderId.equals(DETAILED_INFO_LOADER)){
 			Cursor loaderCursor = sitesDB.getDetailedInfoAboutObekt(searchedNumber);
 			return loaderCursor;
-		}else if(loaderId==2){
+		}else if(loaderId.equals(SEARCH_SITES_LOADER)){
 			Cursor loaderCursor=sitesDB.getSearchResult(searchedNumber);
 			return loaderCursor;
-		}else if(loaderId==3){
+		}else if(loaderId.equals(NEAR_SITES_LOADER)){
 			Cursor loaderCursor=sitesDB.getNearSites(coordinates);
 			return loaderCursor;
-		}else if(loaderId==4){
+		}else if(loaderId.equals(VISITED_SITES_LOADER)){
 			Cursor loaderCursor=sitesDB.getVisitedSites();
 			return loaderCursor;
 		}

@@ -10,7 +10,9 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ public class SiteComments {
 
 		private EditText commentText;
 		private Button sendCommentBtn;
+		private String userName;
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,8 +55,13 @@ public class SiteComments {
 			View rootView = inflater.inflate(R.layout.fragment_site_comments,
 					container, false);
 
+			
 			String jsonStr = getActivity().getIntent().getStringExtra("model");
 			model = new Gson().fromJson(jsonStr, DetailedSiteInfoModel.class);
+			
+			SharedPreferences settings = PreferenceManager
+					.getDefaultSharedPreferences(getActivity());
+			userName=settings.getString("userName", "");
 
 			commentsListView = (ListView) rootView
 					.findViewById(R.id.lv_comments);
@@ -124,15 +132,13 @@ public class SiteComments {
 				try {
 					jdata.put("Comment", commentText.getText().toString());
 					jdata.put("SiteID", model.Number);
-					jdata.put("UserName","Test");
+					jdata.put("UserName",userName);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					serializedEntity = new StringEntity(jdata.toString());
 				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				HttpPersister.Post(getActivity(),"comment", serializedEntity,
@@ -140,9 +146,9 @@ public class SiteComments {
 							@Override
 							public void onSuccess(String response) {
 								commentText.setText("");
-								GetAllComments();
-								
+								GetAllComments();					
 							}
+							
 						});
 			}
 

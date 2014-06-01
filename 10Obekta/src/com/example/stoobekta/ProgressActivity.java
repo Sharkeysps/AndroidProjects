@@ -36,6 +36,7 @@ public class ProgressActivity extends Activity implements
 	TextView currentRank;
 	String androidId;
 	private int VisitedSitesCount;
+	private String userName;
 	private boolean refreshedRanking = false;
 
 	@Override
@@ -57,6 +58,7 @@ public class ProgressActivity extends Activity implements
 		visitedSites.setText("Посетени обекти:" + count + "/100");
 		SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
+		userName=settings.getString("userName", "");
 		boolean receiveRankingData = settings.getBoolean("receiveRankingData",
 				true);
 		if (receiveRankingData) {
@@ -69,12 +71,12 @@ public class ProgressActivity extends Activity implements
 	private void GetCurrentUserRank() {
 		// androidId=getDeviceID(this);
 		androidId = "123abc";
-		HttpPersister.Get(this, "tourist/?androidId=" + androidId, null,
+		HttpPersister.Get(this, "Tourist/GetProgress/?androidId=" + androidId, null,
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
 
-						int count = Integer.valueOf(response) + 1;
+						int count = Integer.valueOf(response)+1;
 						if (refreshedRanking == false) {
 							SendTouristData();
 						}
@@ -92,16 +94,14 @@ public class ProgressActivity extends Activity implements
 
 		try {
 			jdata.put("AndroidID", androidId);
-			jdata.put("Username", "");
+			jdata.put("Username", userName);
 			jdata.put("VisitedSites", VisitedSitesCount);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
 			serializedEntity = new StringEntity(jdata.toString());
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		HttpPersister.Post(this, "tourist", serializedEntity,
@@ -116,6 +116,7 @@ public class ProgressActivity extends Activity implements
 
 	}
 
+	@SuppressWarnings("unused")
 	private String getDeviceID(Context context) {
 		TelephonyManager manager = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
@@ -124,7 +125,6 @@ public class ProgressActivity extends Activity implements
 			// Tablet
 			deviceId = Secure.getString(this.getContentResolver(),
 					Secure.ANDROID_ID);
-
 		} else {
 			// Mobile
 			deviceId = manager.getDeviceId();
@@ -156,7 +156,7 @@ public class ProgressActivity extends Activity implements
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		return new SitesDBCursorLoader(this, SitesDB.getInstance(this), 4,
+		return new SitesDBCursorLoader(this, SitesDB.getInstance(this), SitesDBCursorLoader.VISITED_SITES_LOADER,
 				null, null);
 
 	}

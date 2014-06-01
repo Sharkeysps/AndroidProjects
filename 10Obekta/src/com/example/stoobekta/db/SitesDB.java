@@ -41,7 +41,7 @@ public class SitesDB extends SQLiteAssetHelper {
 
 	}
 
-	public Cursor getObekti() {
+	public Cursor getNationalSites() {
 
 		SQLiteDatabase db = getReadableDatabase();
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();

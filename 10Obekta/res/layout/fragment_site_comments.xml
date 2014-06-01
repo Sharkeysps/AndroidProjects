@@ -14,8 +14,6 @@
         android:inputType="textMultiLine"
         android:lines="5"
         android:maxLength="140" >
-
-        <requestFocus />
     </EditText>
 
     <Button

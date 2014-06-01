@@ -25,12 +25,11 @@ public class DetailedObektActivity extends FragmentActivity implements
 	
 	//Names of tabs
 	private static final String DETAILED_INFO_TAB="Инфо";
-	private static final String EVENTS_TAB="Събития";
 	private static final String COMMENTS_TAB="Коментари";
 
 	
 	// Tab titles
-	private String[] tabs = { DETAILED_INFO_TAB,  COMMENTS_TAB , EVENTS_TAB};
+	private String[] tabs = { DETAILED_INFO_TAB,  COMMENTS_TAB};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,9 @@ public class DetailedObektActivity extends FragmentActivity implements
 		double longitude=getIntent().getDoubleExtra("long", 0);
 		
 		if(lat!=0 || longitude!=0){
+			GPSCoordinateChecker.CurrentSiteLatitude=lat;
+			GPSCoordinateChecker.CurrentSiteLongitude=longitude;
+			
 			GPSCoordinateChecker.CheckDistance(lat, longitude,
 					model.Latitude, model.Longitude,
 					model.Number,context);

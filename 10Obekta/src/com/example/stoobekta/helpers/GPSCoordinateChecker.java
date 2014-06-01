@@ -9,6 +9,9 @@ import com.example.stoobekta.db.SitesDB;
 
 public class GPSCoordinateChecker {
 
+	public static double CurrentSiteLatitude;
+	public static double CurrentSiteLongitude;
+	
 	public static void CheckDistance(double phoneLatitude,double phoneLongitude,
 			double siteLatitude,double siteLongitude,
 			int siteNumber,Context context) {

@@ -11,11 +11,11 @@
         android:text="@string/events_desc"
         android:textSize="16sp"
         android:textStyle="bold"/>
-     
-     <ListView
-        android:id="@+id/lv_events"
-        android:layout_width="fill_parent"
-        android:textSize="14sp"
-        android:layout_height="fill_parent" />
+
+    <ImageView
+        android:id="@+id/arrowHead"
+        android:layout_width="218dp"
+        android:layout_height="287dp"
+        android:src="@drawable/arrow" />
  
 </LinearLayout>
