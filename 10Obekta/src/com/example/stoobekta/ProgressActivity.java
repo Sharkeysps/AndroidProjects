@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.example.stoobekta.db.SitesDB;
 import com.example.stoobekta.db.SitesDBCursorLoader;
 import com.example.stoobekta.helpers.HttpPersister;
+import com.example.stoobekta.models.ProgressModel;
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class ProgressActivity extends Activity implements
@@ -34,6 +36,7 @@ public class ProgressActivity extends Activity implements
 	ProgressBar progressBar;
 	TextView visitedSites;
 	TextView currentRank;
+	TextView messageToUser;
 	String androidId;
 	private int VisitedSitesCount;
 	private String userName;
@@ -47,7 +50,9 @@ public class ProgressActivity extends Activity implements
 		progressBar = (ProgressBar) findViewById(R.id.visitedSitesProgress);
 		visitedSites = (TextView) findViewById(R.id.progresText);
 		currentRank = (TextView) findViewById(R.id.currentRank);
-
+		messageToUser=(TextView)findViewById(R.id.messageToUser);
+		messageToUser.setText("");
+		currentRank.setText("");
 		getLoaderManager().restartLoader(4, null, this);
 
 	}
@@ -75,17 +80,25 @@ public class ProgressActivity extends Activity implements
 				new AsyncHttpResponseHandler() {
 					@Override
 					public void onSuccess(String response) {
-
-						int count = Integer.valueOf(response)+1;
+						
+						Gson gson = new Gson();
+						ProgressModel receivedCommentsModel = gson
+								.fromJson(response, ProgressModel.class);
+						
+						int count = receivedCommentsModel.ProgressNumber+1;
 						if (refreshedRanking == false) {
 							SendTouristData();
 						}
 						currentRank.setText("Вашата позиция в класацията е:"
 								+ count);
+						if(receivedCommentsModel.Message!=null || receivedCommentsModel.Message.trim().length()>0){
+							messageToUser.setText("Имате съобщение от администраторите:"+receivedCommentsModel.Message);
+						}
 					}
 
 				});
 	}
+	
 
 	private void SendTouristData() {
 		StringEntity serializedEntity = null;

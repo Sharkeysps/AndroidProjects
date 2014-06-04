@@ -14,6 +14,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	Button sitesListButton;
 	Button rankingButton;
 	Button optionsButton;
+	Button helpButton;
 	EditText editText;
 	
 
@@ -29,6 +30,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		rankingButton = (Button) findViewById(R.id.rankingButton);
 		rankingButton.setOnClickListener(this);
 
+		helpButton = (Button) findViewById(R.id.helpButton);
+		helpButton.setOnClickListener(this);
+		
 		optionsButton = (Button) findViewById(R.id.optionsButton);
 		optionsButton.setOnClickListener(this);
 
@@ -57,6 +61,9 @@ public class MainActivity extends Activity implements OnClickListener {
 					SettingsActivity.class);
 			startActivity(settingsActivity);
 			break;
+		case R.id.helpButton:
+			Intent helpActivity=new Intent(MainActivity.this,HelpActivity.class);
+			startActivity(helpActivity);
 		}
 
 	}

@@ -44,10 +44,7 @@ public class DetailedObektActivity extends FragmentActivity implements
 		double lat=getIntent().getDoubleExtra("lat", 0);
 		double longitude=getIntent().getDoubleExtra("long", 0);
 		
-		if(lat!=0 || longitude!=0){
-			GPSCoordinateChecker.CurrentSiteLatitude=lat;
-			GPSCoordinateChecker.CurrentSiteLongitude=longitude;
-			
+		if(lat!=0 || longitude!=0){		
 			GPSCoordinateChecker.CheckDistance(lat, longitude,
 					model.Latitude, model.Longitude,
 					model.Number,context);

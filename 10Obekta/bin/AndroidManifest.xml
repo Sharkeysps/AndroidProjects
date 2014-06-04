@@ -34,23 +34,28 @@
         </activity>
         <activity
             android:name="com.example.stoobekta.ListObektiActivity"
-            android:label="@string/title_activity_list_obekti" >
+            android:label="@string/title_activity_list_obekti"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.DetailedObektActivity"
-            android:label="@string/title_activity_detailed_obekt" >
+            android:label="@string/title_activity_detailed_obekt"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.SiteInfoFragment"
-            android:label="@string/title_activity_site_info_fragment" >
+            android:label="@string/title_activity_site_info_fragment"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.SiteCommentsFragment"
-            android:label="@string/title_activity_site_comments_fragment" >
+            android:label="@string/title_activity_site_comments_fragment"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.SitesWikiFragment"
-            android:label="@string/title_activity_sites_wiki_fragment" >
+            android:label="@string/title_activity_sites_wiki_fragment"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.SiteEventsFragment"
@@ -58,11 +63,13 @@
         </activity>
         <activity
             android:name="com.example.stoobekta.VisitedSitesActivity"
-            android:label="@string/title_activity_visited_sites" >
+            android:label="@string/title_activity_visited_sites"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.ProgressActivity"
-            android:label="@string/title_activity_progress" >
+            android:label="@string/title_activity_progress"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.stoobekta.SettingsActivity"
@@ -74,7 +81,12 @@
         </activity>
         <activity
             android:name="com.example.stoobekta.GuideActivity"
-            android:label="@string/title_activity_guide" >
+            android:label="@string/title_activity_guide"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.example.stoobekta.HelpActivity"
+            android:label="@string/title_activity_help" >
         </activity>
     </application>
 

@@ -28,7 +28,6 @@ import android.widget.Toast;
 
 import com.example.stoobekta.db.SitesDB;
 import com.example.stoobekta.db.SitesDBCursorLoader;
-import com.example.stoobekta.helpers.GPSCoordinateChecker;
 import com.example.stoobekta.helpers.GPSLocationListener;
 import com.example.stoobekta.models.CoordinatesModel;
 import com.example.stoobekta.models.DetailedSiteInfoModel;
@@ -60,7 +59,7 @@ public class ListObektiActivity<D> extends Activity implements
 		this.locationListener = new GPSLocationListener();
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-				200, 500, locationListener);
+				200, 10, locationListener);
 
 		getNearSitesButton = (Button) findViewById(R.id.getNearSites);
 		getVisitedSitesButton = (Button) findViewById(R.id.visitedSites);
@@ -141,7 +140,7 @@ public class ListObektiActivity<D> extends Activity implements
 		alertDialogBuilder.setNegativeButton("Насочване към обекта",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						PassToGuideActivity(latitude, longitude);
+						PassToGuideActivity(model.getLatitude(), model.getLongitude());
 					}
 				});
 		AlertDialog alert = alertDialogBuilder.create();
@@ -284,10 +283,9 @@ public class ListObektiActivity<D> extends Activity implements
 	}
 
 	private void PassToGuideActivity(double latitude, double longitude) {
-		GPSCoordinateChecker.CurrentSiteLatitude = latitude;
-		GPSCoordinateChecker.CurrentSiteLongitude = longitude;
-
 		Intent guideActivityIntent = new Intent(this, GuideActivity.class);
+		guideActivityIntent.putExtra("lat", latitude);
+		guideActivityIntent.putExtra("long", longitude);
 		startActivity(guideActivityIntent);
 	}
 

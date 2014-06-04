@@ -34,5 +34,6 @@
     <string name="progress_bar_title">Прогрес:</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_activity_guide">Посока към обекта</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 </resources>

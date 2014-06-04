@@ -62,6 +62,9 @@ public class SiteComments {
 			SharedPreferences settings = PreferenceManager
 					.getDefaultSharedPreferences(getActivity());
 			userName=settings.getString("userName", "");
+			if(userName==null || userName.trim().length()==0){
+				userName="Анонимен";
+			}
 
 			commentsListView = (ListView) rootView
 					.findViewById(R.id.lv_comments);
