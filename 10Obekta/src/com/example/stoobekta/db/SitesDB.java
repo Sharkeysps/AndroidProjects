@@ -54,7 +54,6 @@ public class SitesDB extends SQLiteAssetHelper {
 
 		c.moveToFirst();
 		return c;
-
 	}
 
 	public Cursor getSearchResult(String searchNumber) {

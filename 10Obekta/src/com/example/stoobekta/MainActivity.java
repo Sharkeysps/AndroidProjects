@@ -65,7 +65,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent helpActivity=new Intent(MainActivity.this,HelpActivity.class);
 			startActivity(helpActivity);
 		}
-
 	}
 
 }

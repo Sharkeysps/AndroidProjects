@@ -12,7 +12,7 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 
 	private SitesDB sitesDB;
 	private String loaderId;
-	private String searchedNumber;
+	private String searchParameter;
 	private CoordinatesModel coordinates;
 	public static final String NATIONAL_SITES_LOADER="nationalSites";
 	public static final String DETAILED_INFO_LOADER="detailInfo";
@@ -26,7 +26,7 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 		super(context);
 		this.sitesDB = sitesDB;
 		this.loaderId=loader;
-		this.searchedNumber=searchedNumber;
+		this.searchParameter=searchedNumber;
 		this.coordinates=coordinates;
 	}
 
@@ -36,10 +36,10 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 		Cursor loaderCursor = sitesDB.getNationalSites();
 		return loaderCursor;
 		}else if(loaderId.equals(DETAILED_INFO_LOADER)){
-			Cursor loaderCursor = sitesDB.getDetailedInfoAboutObekt(searchedNumber);
+			Cursor loaderCursor = sitesDB.getDetailedInfoAboutObekt(searchParameter);
 			return loaderCursor;
 		}else if(loaderId.equals(SEARCH_SITES_LOADER)){
-			Cursor loaderCursor=sitesDB.getSearchResult(searchedNumber);
+			Cursor loaderCursor=sitesDB.getSearchResult(searchParameter);
 			return loaderCursor;
 		}else if(loaderId.equals(NEAR_SITES_LOADER)){
 			Cursor loaderCursor=sitesDB.getNearSites(coordinates);
@@ -50,6 +50,5 @@ public class SitesDBCursorLoader extends SimpleCursorLoader {
 		}
 		return null;
 		}
-	
 	}
 
